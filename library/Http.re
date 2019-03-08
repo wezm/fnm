@@ -1,7 +1,4 @@
 open Lwt;
-open Cohttp;
-open Cohttp_lwt;
-open Cohttp_lwt_unix;
 
 type response = {
   body: string,
@@ -15,7 +12,7 @@ exception Not_found(response);
 
 let throwOnKnownErrors =
   fun
-  | {status: 404} as r => Lwt.fail(Not_found(r))
+  | {status: 404, _} as r => Lwt.fail(Not_found(r))
   | r => Lwt.return(r);
 
 let rec makeRequest = url =>
@@ -23,6 +20,7 @@ let rec makeRequest = url =>
   |> Cohttp_lwt_unix.Client.get
   >>= (
     ((resp, body)) => {
+      open Cohttp;
       let status = resp |> Response.status;
       let code_of_status = status |> Code.code_of_status;
       let location = resp |> Response.headers |> Header.get_location;
@@ -37,6 +35,7 @@ let rec makeRequest = url =>
   );
 
 let download = (url, ~into) => {
-  let%lwt _ = makeRequest(url) >>= (({body}) => Fs.writeFile(into, body));
+  let%lwt _ =
+    makeRequest(url) >>= (({body, _}) => Fs.writeFile(into, body));
   Lwt.return();
 };

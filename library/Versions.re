@@ -44,7 +44,7 @@ module Local = {
         _ => Lwt.return_nil,
       );
     switch (versions) {
-    | [version, ...xs] => Lwt.return_some(version)
+    | [version, ..._] => Lwt.return_some(version)
     | [] => Lwt.return_none
     };
   };
@@ -136,8 +136,8 @@ module Remote = {
     |> List.map(x => {
          let parts = String.split_on_char('/', x) |> List.rev;
          switch (parts) {
-         | ["", x, ...xs] => x ++ "/"
-         | [x, ...xs] => x
+         | ["", x, ..._] => x ++ "/"
+         | [x, ..._] => x
          | [] => ""
          };
        });
@@ -223,7 +223,6 @@ let getRemoteVersions = () => {
 
 let getRemoteLatestVersionByPrefix = prefix => {
   open Remote;
-  open Lwt;
 
   let%lwt remoteVersions = getRemoteVersions();
 
@@ -234,7 +233,7 @@ let getRemoteLatestVersionByPrefix = prefix => {
     |> List.sort(flip(compare));
 
   switch (compatibleVersions) {
-  | [version, ...vs] => Lwt.return_some(version)
+  | [version, ..._] => Lwt.return_some(version)
   | [] => Lwt.return_none
   };
 };

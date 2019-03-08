@@ -45,6 +45,23 @@
       "name": "fnm.lib",
       "namespace": "Fnm"
     },
+    "benchmark": {
+      "preprocess": [
+        "pps",
+        "lwt_ppx",
+        "ppx_let"
+      ],
+      "require": [
+        "core",
+        "benchmark",
+        "lwt",
+        "lwt.unix",
+        "console.lib",
+        "pastel.lib"
+      ],
+      "main": "FnmBenchmark",
+      "name": "FnmBenchmark.exe"
+    },
     "executable": {
       "preprocess": [
         "pps",
@@ -99,6 +116,7 @@
   },
   "devDependencies": {
     "@opam/merlin": "*",
+    "@opam/benchmark": "*",
     "prettier": "*",
     "jest-diff": "24.0.0",
     "lint-staged": "*",
