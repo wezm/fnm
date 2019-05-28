@@ -18,8 +18,11 @@ jobs:
   # TODO: Uncomment both this and 'publish-build-cache' below to enable build caching for Linux.
   # - template: .ci/restore-build-cache.yml
   - script: sudo apt-get install -y fish
+    displayName: "install fish shell"
   - script: .ci/create-static-binary.sh
+    displayName: "create a static binary"
   - script: ./feature_tests/run.sh $(pwd)/fnm
+    displayName: "feature tests"
   # - script: bash .ci/prepare-static-build.sh
   # - template: .ci/esy-build-steps.yml
   # - template: .ci/publish-build-cache.yml
@@ -42,10 +45,14 @@ jobs:
   # TODO: Uncomment both this and 'publish-build-cache' below to enable build caching for Mac.
   # - template: .ci/restore-build-cache.yml
   - script: brew install fish
+    displayName: "install fish shell"
   - template: .ci/esy-build-steps.yml
   - script: cp _build/default/executable/FnmApp.exe _build/fnm
+    displayName: "copy build to local directory"
   - script: strip _build/fnm
+    displayName: "strip the binary"
   - script: ./feature_tests/run.sh $(pwd)/_build/fnm
+    displayName: "feature tests"
   # - template: .ci/publish-build-cache.yml
   - task: PublishBuildArtifacts@1
     displayName: 'Save artifact'
