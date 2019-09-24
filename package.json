@@ -4,7 +4,6 @@
   "description": "Fast and simple Node.js version manager, built in ReasonML",
   "esy": {
     "build": "pesy",
-    "buildsInSource": "_build",
     "release": {
       "releasedBinaries": [
         "fnm.exe"
@@ -91,7 +90,7 @@
     "@opam/cohttp": "^2.1.2",
     "@opam/cohttp-lwt": "^2.0.0",
     "@opam/cohttp-lwt-unix": "^2.0.0",
-    "@opam/ssl": "0.5.7",
+    "@opam/ssl": "^0.5.7",
     "@opam/lwt_ssl": "^1.1.2",
     "@reason-native/console": "^0.1.0",
     "@reason-native/pastel": "^0.2.0",
@@ -101,9 +100,6 @@
     "refmterr": "*",
     "ocaml": "~4.6.0",
     "pesy": "*"
-  },
-  "resolutions": {
-    "@opam/macaddr": "3.1.0"
   },
   "devDependencies": {
     "@opam/merlin": "*",
